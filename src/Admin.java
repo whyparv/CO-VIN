@@ -1,0 +1,2556 @@
+
+import covid.log.Apply;
+import covid.log.General;
+import covid.log.Hospital;
+import covid.log.Login;
+import covid.log.PatientCount;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.scripts.JO;
+import one.connect.ConnectionFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author ACER
+ */
+public class Admin extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Home
+     */CardLayout cl;
+     DefaultTableModel dtm1;
+     public void viewApp()
+     {
+         SessionFactory sf=ConnectionFactory.emergencyconnection();
+           Session session=sf.openSession();
+           Transaction tx=session.beginTransaction();
+          dtm1=(DefaultTableModel)jTable2.getModel();
+          Criteria ct=session.createCriteria(Apply.class);
+          List<Apply> list=ct.list();
+          jComboBox2.addItem("Choose ID to delete");
+          for(Apply data:list)
+          {
+              Object obj[]={data.getId(), data.getName(), data.getContactNo(), data.getDate(), data.getTime(), data.getLocation(), data.getAppliedFor()};
+           dtm1.addRow(obj);
+           jComboBox2.addItem(data.getId());
+          }
+          
+    }               
+     public void adminPg()
+     {
+         int n=0,i=0,j=0,k=0,l=0,m=0,o=0;
+         SessionFactory sf=ConnectionFactory.emergencyconnection();
+         Session session=sf.openSession();
+         Criteria ct=session.createCriteria(Login.class);
+         List<Login> list=ct.list();
+         for(Login log: list)
+         {
+             n++;
+         }
+         Criteria ct1=session.createCriteria(Login.class);
+         ct1.add(Restrictions.eq("status", "blocked"));
+         List<Login> list1=ct1.list();
+         for(Login log: list1)
+         {
+             i++;
+         }
+         Criteria ct2=session.createCriteria(Login.class);
+         ct2.add(Restrictions.eq("status", "unblocked"));
+         List<Login> list2=ct2.list();
+         for(Login log: list2)
+         {
+             j++;
+         }
+         Criteria ct3=session.createCriteria(General.class);
+         ct3.add(Restrictions.eq("status", "low"));
+         List<General> list3=ct3.list();
+         for(General log: list3)
+         {
+             k++;
+         }
+         Criteria ct4=session.createCriteria(General.class);
+         ct4.add(Restrictions.eq("status", "moderate"));
+         List<General> list4=ct4.list();
+         for(General log: list4)
+         {
+             l++;
+         }
+         Criteria ct5=session.createCriteria(General.class);
+         ct5.add(Restrictions.eq("status", "high"));
+         List<General> list5=ct5.list();
+         for(General log: list5)
+         {
+             m++;
+         }
+         Criteria ct6=session.createCriteria(Hospital.class);
+         List<Hospital> list6=ct6.list();
+         for(Hospital log: list6)
+         {
+             o++;
+         }
+         jLabel32.setText(Integer.toString(o));
+         jLabel33.setText(Integer.toString(m));
+         jLabel34.setText(Integer.toString(l));
+         jLabel35.setText(Integer.toString(k));
+         jLabel36.setText(Integer.toString(j));
+         jLabel74.setText(Integer.toString(i));
+         jLabel75.setText(Integer.toString(n));
+     }
+    public Admin() throws Exception {
+        
+        
+        initComponents();
+        adminPg();
+        SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+
+ jComboBox1.addItem("welcome ,"+Login1.st);
+ jComboBox1.addItem("Update Profile");
+ jComboBox1.addItem("Change Password");
+ jComboBox1.addItem("Logout");
+ jTable1.setOpaque(false);
+ jComboBox3.setBackground(Color.black);
+ jComboBox1.setBackground(Color.black);
+
+        PatientCount pc=(PatientCount)session.get(PatientCount.class,"2");
+       jLabel19.setText(pc.getInfected());
+       jLabel20.setText(pc.getRecovered());
+       jLabel21.setText(pc.getDeaths());
+       PatientCount pc1=(PatientCount)session.get(PatientCount.class,"1");
+       jLabel22.setText(pc1.getInfected());
+       jLabel23.setText(pc1.getRecovered());
+       jLabel24.setText(pc1.getDeaths());
+      
+         cl=(CardLayout)jPanel1.getLayout();
+ cl.show(jPanel1, "home");
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel68 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jComboBox6 = new javax.swing.JComboBox<>();
+        jComboBox7 = new javax.swing.JComboBox<>();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jComboBox9 = new javax.swing.JComboBox<>();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel67 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jPasswordField3 = new javax.swing.JPasswordField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 23)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/load2.gif"))); // NOI18N
+        jLabel2.setText("COV-IN");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 260, 90));
+
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Update Stats");
+        jLabel5.setOpaque(true);
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 150, 30));
+
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Update Hospital Info");
+        jLabel6.setOpaque(true);
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 190, 30));
+
+        jLabel37.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel37.setText("View Applicaations");
+        jLabel37.setOpaque(true);
+        jLabel37.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel37MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 180, 30));
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("HOME");
+        jLabel8.setOpaque(true);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 110, 30));
+
+        jLabel10.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Status Check");
+        jLabel10.setOpaque(true);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 150, 30));
+
+        jComboBox1.setBackground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(255, 255, 0));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 90, 150, 30));
+
+        jComboBox3.setBackground(new java.awt.Color(0, 0, 0));
+        jComboBox3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jComboBox3.setForeground(new java.awt.Color(255, 255, 0));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Update user", "Block/Unblock", "Password", "Profile" }));
+        jComboBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox3MouseClicked(evt);
+            }
+        });
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, 150, 30));
+
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        jPanel6.setOpaque(false);
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("jLabel7");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 1020, 51));
+
+        jLabel57.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel57.setText("jLabel7");
+        jPanel6.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 291, 975, 100));
+
+        jLabel58.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel58.setText("jLabel7");
+        jPanel6.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 506, 975, 51));
+
+        jLabel59.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel59.setText("jLabel7");
+        jPanel6.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 193, 1000, 110));
+
+        jLabel60.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel60.setText("jLabel7");
+        jPanel6.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 997, 130));
+
+        jLabel61.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel61.setText("jLabel7");
+        jPanel6.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 965, 51));
+
+        jPanel1.add(jPanel6, "health");
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Contact Number", "Date", "Time", "Location", "Applied for"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 880, 450));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 540, -1, 20));
+
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 500, 160, 30));
+
+        jPanel1.add(jPanel3, "combo2");
+
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel69.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel69.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel69.setText("jLabel69");
+        jPanel7.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(393, 39, 204, -1));
+
+        jLabel71.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel71.setText("Mail us at: cov.in123@gmail.com");
+        jPanel7.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 570, 30));
+
+        jLabel72.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel72.setText("Headquarters: 112/2 Pushp Apartment, Airport Road, Indore (M.P.)");
+        jPanel7.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 640, 30));
+
+        jLabel73.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel73.setText("Contact Number: +91 9893689825 ");
+        jPanel7.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 570, 30));
+
+        jLabel70.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel70.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel7.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 797, 407));
+
+        jPanel1.add(jPanel7, "more");
+
+        jPanel5.setOpaque(false);
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel68.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel68.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel68.setText("Hospital Information");
+        jPanel5.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
+
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jScrollPane1.setOpaque(false);
+
+        jTable1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Contact Number", "Locations", "Total Beds", "Occupied Beds", "Vaccine", "Doctor Name", "Doctor Number"
+            }
+        ));
+        jTable1.setOpaque(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1020, 440));
+
+        jPanel1.add(jPanel5, "hos");
+
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Total number of users");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 210, 20));
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Number of blocked users");
+        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 230, 20));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Number of unblocked users");
+        jPanel2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 250, 20));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Users with low risk");
+        jPanel2.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 210, 20));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Users with moderate risk");
+        jPanel2.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 240, 20));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Users with high risk");
+        jPanel2.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 210, 20));
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Number of hospitals");
+        jPanel2.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, 210, 20));
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel32.setText("jLabel32");
+        jPanel2.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, -1, 20));
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setText("jLabel32");
+        jPanel2.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, 20));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel34.setText("jLabel32");
+        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 350, -1, 20));
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel35.setText("jLabel32");
+        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 290, -1, 20));
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel36.setText("jLabel32");
+        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, -1, 20));
+
+        jLabel74.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel74.setText("jLabel32");
+        jPanel2.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, -1, 20));
+
+        jLabel75.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel75.setText("jLabel32");
+        jPanel2.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, -1, 20));
+
+        jPanel1.add(jPanel2, "home");
+
+        jPanel4.setOpaque(false);
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "State", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Harayana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharastra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal" }));
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 150, 30));
+
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "City" }));
+        jComboBox7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox7.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox7ItemStateChanged(evt);
+            }
+        });
+        jComboBox7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBox7MouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jComboBox7MousePressed(evt);
+            }
+        });
+        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox7ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 160, 30));
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel40.setText("jLabel40");
+        jPanel4.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel44.setText("ACTIVE");
+        jPanel4.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 530, -1, -1));
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel45.setText("RECOVERED");
+        jPanel4.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 520, -1, -1));
+
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel46.setText("DEATHS");
+        jPanel4.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 520, -1, -1));
+
+        jLabel47.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel47.setText("ACTIVE");
+        jPanel4.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel48.setText("RECOVERED");
+        jPanel4.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, -1));
+
+        jLabel49.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel49.setText("DEATHS");
+        jPanel4.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, -1, -1));
+
+        jLabel50.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel50.setText("jLabel40");
+        jPanel4.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+
+        jLabel51.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel51.setText("jLabel51");
+        jPanel4.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, -1, -1));
+
+        jLabel52.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel52.setText("jLabel51");
+        jPanel4.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 470, -1, -1));
+
+        jLabel53.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel53.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel53.setText("jLabel51");
+        jPanel4.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 470, -1, -1));
+
+        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel54.setText("jLabel51");
+        jPanel4.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, -1, -1));
+
+        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel55.setText("jLabel51");
+        jPanel4.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, -1));
+
+        jLabel56.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel56.setText("jLabel51");
+        jPanel4.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+
+        jPanel1.add(jPanel4, "covids");
+
+        jPanel8.setOpaque(false);
+
+        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
+        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel62.setText("jpanel");
+
+        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel63.setText("What do you want to update?");
+
+        jLabel65.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel65.setText("jLabel65");
+
+        jLabel64.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel64.setText("jLabel64");
+
+        jLabel66.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel66.setText("jLabel66");
+
+        jButton2.setText("Submit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Name", "Contact number", "Address", "City", "PIN" }));
+        jComboBox9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox9ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jLabel67.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel67.setText("jLabel67");
+
+        jPasswordField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(444, 444, 444)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(332, 332, 332)
+                        .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel63)
+                            .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel66, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(jLabel67, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(152, 152, 152))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel63)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addComponent(jLabel64)
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel66)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel67)
+                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addComponent(jButton2)
+                .addGap(101, 101, 101))
+        );
+
+        jPanel1.add(jPanel8, "upda");
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 1020, 600));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel19.setText("jLabel19");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel20.setText("jLabel20");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel21.setText("jLabel21");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel22.setText("jLabel22");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel23.setText("jLabel23");
+        getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel24.setText("jLabel24");
+        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, -1, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (34).png"))); // NOI18N
+        jLabel25.setText("jLabel25");
+        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 660, 100, -1));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel18.setText("India");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel17.setText("World");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (30).png"))); // NOI18N
+        jLabel14.setText("jLabel11");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 150, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (32).png"))); // NOI18N
+        jLabel16.setText("jLabel13");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 150, -1));
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (31).png"))); // NOI18N
+        jLabel15.setText("jLabel12");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 510, 150, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (30).png"))); // NOI18N
+        jLabel11.setText("jLabel11");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 150, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (31).png"))); // NOI18N
+        jLabel12.setText("jLabel12");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 150, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (32).png"))); // NOI18N
+        jLabel13.setText("jLabel13");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 150, -1));
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setOpaque(true);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1280, 30));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Screenshot (25)_1.png"))); // NOI18N
+        jLabel9.setText("jLabel9");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 260, 600));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/covidback.gif"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        adminPg();
+        cl.show(jPanel1, "home");
+        
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+     cl.show(jPanel1,"covids");
+     jLabel50.setVisible(false);
+     jLabel56.setVisible(false);
+     jLabel55.setVisible(false);
+     jLabel54.setVisible(false);
+     jLabel47.setVisible(false);
+     jLabel48.setVisible(false);
+     jLabel49.setVisible(false);
+     jLabel40.setVisible(false);
+     jLabel51.setVisible(false);
+     jLabel52.setVisible(false);
+     jLabel53.setVisible(false);
+     jLabel44.setVisible(false);
+     jLabel45.setVisible(false);
+     jLabel46.setVisible(false);
+    }//GEN-LAST:event_jLabel5MouseClicked
+DefaultTableModel dtm;
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    cl.show(jPanel1, "hos");
+        SessionFactory sf=ConnectionFactory.emergencyconnection();
+           Session session=sf.openSession();
+           Transaction tx=session.beginTransaction();
+          dtm=(DefaultTableModel)jTable1.getModel();
+          Criteria ct=session.createCriteria(Hospital.class);
+          List<Hospital> list=ct.list();
+          for(Hospital data:list)
+          {
+              Object obj[]={data.getName(),data.getContactNo(),data.getLocation(),data.getTotalBeds(),data.getOccupiedBeds(),data.getVaccineAvailability(),data.getDoctor(),data.getDoctorNo()};
+           dtm.addRow(obj);
+          }
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+      Status s;
+         try {
+             s = new Status();
+               s.setVisible(true);
+         } catch (Exception ex) {
+             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+         jLabel50.setVisible(true);
+     jLabel56.setVisible(true);
+     jLabel55.setVisible(true);
+     jLabel54.setVisible(true);
+     jLabel47.setVisible(true);
+     jLabel48.setVisible(true);
+     jLabel49.setVisible(true);
+      jLabel40.setVisible(false);
+     jLabel51.setVisible(false);
+     jLabel52.setVisible(false);
+     jLabel53.setVisible(false);
+     jLabel44.setVisible(false);
+     jLabel45.setVisible(false);
+     jLabel46.setVisible(false);
+     jComboBox7.removeAllItems();
+     jComboBox7.addItem("City");
+    int str4=0,str5=0,str6=0;
+      String str=(String)jComboBox6.getSelectedItem();
+     
+     if(str.equalsIgnoreCase("Andhra Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Arunachal Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Assam"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Chhattisgarh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Goa"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Gujarat"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Haryana"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Himachal Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Jharkhand"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Karnataka"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Kerala"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Madhya Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Maharashtra"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Manipur"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Meghalaya"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Mizoram"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Nagaland"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Odisha"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Punjab"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Rajasthan"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Sikkim"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Tamil Nadu"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Telangana"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Tripura"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Uttar Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("Uttarakhand"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+if(str.equalsIgnoreCase("West Bengal"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.eq("state", str));
+        List<PatientCount> list= ct.list();
+        for(PatientCount data: list)
+        {
+                    int str1=Integer.parseInt(data.getInfected());
+                    str4=str4+str1;
+                     int str2=Integer.parseInt(data.getRecovered());
+                    str5=str5+str2;
+                     int str3=Integer.parseInt(data.getDeaths());
+                    str6=str6+str3;
+                    jComboBox7.addItem(data.getCity());
+        }
+        jLabel50.setText(str);
+        jLabel56.setText(Integer.toString(str4));
+          jLabel55.setText(Integer.toString(str5));
+            jLabel54.setText(Integer.toString(str6));
+
+     }
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+       
+    }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void jComboBox7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox7MouseClicked
+  jLabel40.setVisible(true);
+     jLabel51.setVisible(true);
+     jLabel52.setVisible(true);
+     jLabel53.setVisible(true);
+     jLabel44.setVisible(true);
+     jLabel45.setVisible(true);
+     jLabel46.setVisible(true);
+     String str4="",str5="",str6="";
+      String str=(String)jComboBox6.getSelectedItem();
+      String str7=(String)jComboBox7.getSelectedItem();
+    
+     
+     if(str.equalsIgnoreCase("Andhra Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Arunachal Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Assam"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Bihar"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Chhattisgarh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Goa"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Gujarat"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Haryana"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Himachal Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Jharkhand"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Karnataka"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Kerala"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Madhya Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Maharashtra"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Manipur"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Meghalaya"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Mizoram"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Nagaland"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Odisha"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Punjab"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Rajasthan"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Sikkim"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Tamil Nadu"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Telangana"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Tripura"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Uttar Pradesh"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("Uttarakhand"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }
+     if(str.equalsIgnoreCase("West Bengal"))
+     {
+          SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Criteria ct=session.createCriteria(PatientCount.class);
+        ct.add(Restrictions.and(Restrictions.eq("state", str),Restrictions.eq("city",str7)));
+        List<PatientCount> list= ct.list();
+        
+        for(PatientCount data: list)
+        {
+                 
+                    str4=data.getInfected();
+                 
+                    str5=data.getRecovered();
+                    
+                    str6=data.getDeaths();
+                   
+        }
+        jLabel40.setText(str7);
+        jLabel51.setText(str4);
+          jLabel52.setText(str5);
+            jLabel53.setText(str6);
+     }       
+    }//GEN-LAST:event_jComboBox7MouseClicked
+
+    private void jComboBox7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox7MousePressed
+        
+    }//GEN-LAST:event_jComboBox7MousePressed
+
+    private void jComboBox7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox7MouseEntered
+       
+    }//GEN-LAST:event_jComboBox7MouseEntered
+
+    private void jComboBox7ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox7ItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox7ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+        CardLayout c=(CardLayout)jPanel1.getLayout();
+        c.show(jPanel1, "upda");
+        String str=(String)jComboBox1.getSelectedItem();
+
+        if(str.equalsIgnoreCase("Logout"))
+        {
+            Login1 log=new Login1();
+            log.setVisible(true);
+            dispose();
+            
+        }
+        if(str.equalsIgnoreCase("Update Profile"))
+        {
+            jLabel65.setVisible(false);
+            jTextField3.setVisible(false);
+            jLabel62.setText("Update Profile");
+            jLabel64.setVisible(false);
+            jLabel66.setVisible(false);
+            jLabel67.setVisible(false);
+            jPasswordField1.setVisible(false);
+            jPasswordField2.setVisible(false);
+            jPasswordField3.setVisible(false);
+        }
+        if(str.equalsIgnoreCase("Change Password"))
+        {
+            jLabel62.setText("Change Password");
+            jLabel64.setVisible(true);
+            jLabel66.setVisible(true);
+            jLabel67.setVisible(true);
+            jPasswordField1.setVisible(true);
+            jPasswordField2.setVisible(true);
+            jPasswordField3.setVisible(true);
+            jLabel63.setVisible(false);
+            jLabel65.setVisible(false);
+            jTextField3.setVisible(false);
+            jComboBox9.setVisible(false);
+            jLabel64.setText("Old Password");
+            jLabel66.setText("New password");
+            jLabel67.setText("Confirm new password");
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox9ActionPerformed
+        jLabel65.setVisible(true);
+            jTextField3.setVisible(true);
+        String str=(String)jComboBox9.getSelectedItem();
+        jLabel65.setText("Enter updated "+str);
+    }//GEN-LAST:event_jComboBox9ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jPasswordField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String str=(String)jComboBox1.getSelectedItem();
+        if(str.equalsIgnoreCase("Update Profile"))
+        {
+            String str1=(String)jComboBox9.getSelectedItem();
+            String str2=jTextField3.getText();
+            SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Transaction tx=session.beginTransaction();
+            if(str1.equalsIgnoreCase("Name"))
+            {
+                 Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setFullName(str2);
+        session.update(g);
+           tx.commit();
+            }
+            if(str1.equalsIgnoreCase("Contact number"))
+            {
+                 Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setContactNo(str2);
+        session.update(g);
+           tx.commit();
+            }
+            if(str1.equalsIgnoreCase("Address"))
+            {
+                 Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setAddress(str2);
+        session.update(g);
+           tx.commit();
+            }
+            if(str1.equalsIgnoreCase("City"))
+            {
+                 Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setCity(str2);
+        session.update(g);
+           tx.commit();
+            }
+            if(str1.equalsIgnoreCase("Pin"))
+            {
+                 Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setPin(str2);
+        session.update(g);
+           tx.commit();
+            }
+            JOptionPane.showMessageDialog(this, str1+" updated");
+            cl.show(jPanel1, "home");
+        }
+        if(str.equalsIgnoreCase("Change Password"))
+        {
+           SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Transaction tx=session.beginTransaction();
+            char pass[]=jPasswordField1.getPassword();
+            String str1=new String(pass);
+            char pass1[]=jPasswordField2.getPassword();
+            String str2=new String(pass1);
+            char pass2[]=jPasswordField3.getPassword();
+            String str3=new String(pass2);
+            Criteria ct=session.createCriteria(Login.class);
+            ct.add(Restrictions.eq("pass", str1));
+            List<Login> list=ct.list();
+            if(list.isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "Old password does not match");
+            }
+            else
+            {
+                if(str2.equals(str3))
+                {
+                    Login g=(Login)session.get(Login.class,  Login1.st);
+        g.setPass(str2);
+        session.update(g);
+           tx.commit();
+           JOptionPane.showMessageDialog(this, "Password changed");
+           cl.show(jPanel1, "home");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "New password and confirm new password does not match");
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        cl.show(jPanel1, "health");
+        String str=(String)jComboBox3.getSelectedItem();
+        if(str.equalsIgnoreCase("Precautions"))
+        {
+            jLabel7.setText("Precautions");
+            jLabel57.setText("Clean your hands often. Use soap and water, or an alcohol-based hand rub.");
+            jLabel58.setText("Maintain a safe distance from anyone who is coughing or sneezing.");
+            jLabel59.setText("Wear a mask when physical distancing is not possible");
+            jLabel60.setText("Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.");
+            jLabel61.setText("If you have a fever, cough and difficulty breathing, seek medical attention");
+        }
+        if(str.equalsIgnoreCase("Symptoms"))
+        {
+            jLabel7.setText("Symptoms");
+            jLabel57.setText("<html>Most Common Symptoms<br>1. fever<br>2. dry cough<3. tiredness>");
+            jLabel58.setText("<html>Less Comon Symptoms<br>1. Headache<br>2. Sore throat<br>3. Loss of taste");
+            jLabel59.setText("<html>Serious Symptoms<br>1. Difficulty in breathing<br>2.  Chest pain<br>3. Loss of speech");
+            jLabel60.setText("Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.");
+            jLabel61.setText("If you have a fever, cough and difficulty breathing, seek medical attention");
+        }
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3MouseClicked
+
+    private void jLabel37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37MouseClicked
+       viewApp();
+        cl.show(jPanel1, "combo2");
+        
+    }//GEN-LAST:event_jLabel37MouseClicked
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SessionFactory sf=ConnectionFactory.emergencyconnection();
+        Session session=sf.openSession();
+        Transaction tx=session.beginTransaction();
+        String str11=(String)jComboBox2.getSelectedItem();
+        Apply log=(Apply)session.get(Apply.class, str11);
+        session.delete(log);
+        tx.commit();
+        dtm1.setRowCount(0);
+        jComboBox2.removeAllItems();
+        viewApp();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+//jComboBox2.setBackground(Color.BLACK);
+// jComboBox2.setForeground(Color.red);
+ UIManager.put("ComboBox2.background", new ColorUIResource(Color.yellow));
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new Admin().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField jPasswordField3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField3;
+    // End of variables declaration//GEN-END:variables
+}

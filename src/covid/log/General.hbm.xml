@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="covid.log">
+<class name="General" table="general">
+<id name="id"/>
+<property name="ques1"/>
+<property name="ques2"/>
+<property name="ques3"/>
+<property name="ques4"/>
+<property name="ques5"/>
+<property name="ques6"/>
+<property name="ques7"/>
+<property name="status"/>
+</class>
+</hibernate-mapping>

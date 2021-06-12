@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="covid.log">
+<class name="PatientCount" table="patientcount">
+    <id name="snNO"/>
+    <property name="state"/>
+    <property name="city"/>
+    <property name="infected"/>
+    <property name="recovered"/>
+    <property name="deaths"/>
+    <property name="total"/>    
+</class>
+</hibernate-mapping>

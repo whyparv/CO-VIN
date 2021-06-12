@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="covid.log">
+  <class name="Login" table="login">
+      <id name="id" column="id"/>
+      <property name="pass" column="pass"/>
+      <property name="fullName" column="fullName"/>
+      <property name="age" column="age"/>
+      <property name="gender" column="gender"/>
+      <property name="contactNo" column="contactNo"/>
+      <property name="address" column="address"/>
+      <property name="city" column="city"/>
+      <property name="pin" column="pin"/>
+        <property name="type" column="type"/>
+       <property name="aadharNo" column="aadharNo"/>
+      <property name="status" column="status"/>
+  </class>
+</hibernate-mapping>
